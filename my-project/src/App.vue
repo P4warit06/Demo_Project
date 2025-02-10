@@ -11,6 +11,9 @@ const playMusic = () => {
   else musicPlayer.value.pause()
 }
 const urlDocFile =ref('') 
+
+const showPicture = ref('') 
+
 const docName = ref('')
 const chooseBinaryFile = (event) => { 
 // console.log(event.target.value);
@@ -19,9 +22,15 @@ const chooseBinaryFile = (event) => {
 // console.log(event.target.files[0]);
 // console.log(event.target.files[0].name);
 docName.value = event.target.files[0].name
-if(docName.value.endsWith('.pdf')&& docName.value.endsWith('.doc')){ 
-  urlDocFile.value = previewBinaryFile(event.target.files[0])
-}
+// if(docName.value.endsWith('.pdf') || docName.value.endsWith('.doc')){ 
+//   urlDocFile.value = previewBinaryFile(event.target.files[0])
+// }
+// }
+const file = event.target.files[0];
+    if (docName.value.endsWith('.jpg') || docName.value.endsWith('.png') || docName.value.endsWith('.jpeg')) { 
+        showPicture.value = URL.createObjectURL(file);
+    }
+    return {showPicture , chooseBinaryFile} 
 }
 </script>
 
@@ -119,11 +128,21 @@ if(docName.value.endsWith('.pdf')&& docName.value.endsWith('.doc')){
 
        
 <div>
-
-  <div class="">
+  <!-- <div class="">
     Attach File : <input type="file" accept=".pdf , .doc"@change="chooseBinaryFile"> 
-    <a href="urlDocFile" target="_blank" >{{docName}} </a>
+    <a href="urlDocFile" target="_blank" class="bg-red-400" >{{docName}} </a>
+  </div> -->
+  <div class="p-4">
+    <div>
+      <h2 class="red"> Picture : <input type="file" @change="chooseBinaryFile" accept="image/*" class="mb-4 " /> </h2>
+    </div>
+   
+    <div v-if="showPicture" class="thumbnail-container">
+      <p>🖼 รูปภาพที่เลือก:</p>
+      <img :src="showPicture" target="_blank" class="bg-red-500" />
+    </div>
   </div>
+
 
 </div>
 
