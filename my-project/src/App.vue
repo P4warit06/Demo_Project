@@ -11,9 +11,7 @@ const playMusic = () => {
   else musicPlayer.value.pause()
 }
 const urlDocFile =ref('') 
-
 const showPicture = ref('') 
-
 const docName = ref('')
 const chooseBinaryFile = (event) => { 
 // console.log(event.target.value);
@@ -22,12 +20,10 @@ const chooseBinaryFile = (event) => {
 // console.log(event.target.files[0]);
 // console.log(event.target.files[0].name);
 docName.value = event.target.files[0].name
-// if(docName.value.endsWith('.pdf') || docName.value.endsWith('.doc')){ 
-//   urlDocFile.value = previewBinaryFile(event.target.files[0])
-// }
-// }
-const file = event.target.files[0];
-    if (docName.value.endsWith('.jpg') || docName.value.endsWith('.png') || docName.value.endsWith('.jpeg')) { 
+if(docName.value.endsWith('.pdf') || docName.value.endsWith('.doc')){ 
+  urlDocFile.value = previewBinaryFile(event.target.files[0])
+}
+  else if(docName.value.endsWith('.jpg') || docName.value.endsWith('.png') || docName.value.endsWith('.jpeg')) { 
         showPicture.value = URL.createObjectURL(file);
     }
     return {showPicture , chooseBinaryFile} 
